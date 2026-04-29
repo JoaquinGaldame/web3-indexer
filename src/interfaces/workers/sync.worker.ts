@@ -1,16 +1,19 @@
-import { Interface } from "ethers";
+// src/interfaces/workers/sync.worker.ts
 
+import { Interface } from "ethers";
 import { env } from "../../infraestructure/config/env";
-import { EthersBlockchainClient } from "../../infraestructure/blockchain";
-import { EthersEventDecoder } from "../../infraestructure/blockchain";
+import { pool } from "../../infraestructure/db";
+
+import { EthersBlockchainClient, EthersEventDecoder } from "../../infraestructure/blockchain";
+
+import { DrizzleCheckpointRepository } from "../../infraestructure/db/repositories";
+import { DrizzleRawLogRepository } from "../../infraestructure/db/repositories";
+import { DrizzleIndexedBlockRepository } from "../../infraestructure/db/repositories";
+import { DrizzleErc20TransferRepository } from "../../infraestructure/db/repositories";
+
+
 import { BlockRangePlanner } from "../../application/services/block-range-planner";
 import { SyncContractEventsUseCase } from "../../application/use-cases/sync-contract-events.use-case";
-
-// Próximo paso: reemplazar estos imports por repositorios Drizzle reales
-// import { DrizzleCheckpointRepository } from "../../infrastructure/db/repositories/drizzle-checkpoint.repository";
-// import { DrizzleRawLogRepository } from "../../infrastructure/db/repositories/drizzle-raw-log.repository";
-// import { DrizzleIndexedBlockRepository } from "../../infrastructure/db/repositories/drizzle-indexed-block.repository";
-// import { DrizzleErc20TransferRepository } from "../../infrastructure/db/repositories/drizzle-erc20-transfer.repository";
 
 const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 value)",
@@ -23,40 +26,45 @@ if (!transferTopic) {
   throw new Error("Could not resolve ERC20 Transfer topic");
 }
 
+/**
+ * TEMPORARY indexing targets.
+ *
+ * Later this should move to a DB table:
+ * indexing_targets(chain_id, contract_address, event_name, topic0, start_block, enabled)
+ */
 const targets = [
   {
-    contractAddress: "0x0000000000000000000000000000000000000000",
+    contractAddress: "0x56734d768F15954C0eEFcfB4063eF31fFB35A880",
     eventName: "Transfer",
     topics: [transferTopic],
     startBlock: env.startBlock,
   },
 ];
 
-async function runOnce() {
-  const blockchainClient = new EthersBlockchainClient({
-    rpcUrl: env.rpcUrl,
-    chainId: env.chainId,
-  });
+const blockchainClient = new EthersBlockchainClient({
+  rpcUrl: env.rpcUrl,
+  chainId: env.chainId,
+});
 
-  const eventDecoder = new EthersEventDecoder();
-  const blockRangePlanner = new BlockRangePlanner();
+const eventDecoder = new EthersEventDecoder();
+const blockRangePlanner = new BlockRangePlanner();
 
-  // Todavía faltan estos adapters reales
-  const checkpointRepository = undefined as never;
-  const rawLogRepository = undefined as never;
-  const indexedBlockRepository = undefined as never;
-  const erc20TransferRepository = undefined as never;
+const checkpointRepository = new DrizzleCheckpointRepository();
+const rawLogRepository = new DrizzleRawLogRepository();
+const indexedBlockRepository = new DrizzleIndexedBlockRepository();
+const erc20TransferRepository = new DrizzleErc20TransferRepository();
 
-  const syncContractEventsUseCase = new SyncContractEventsUseCase(
-    blockchainClient,
-    checkpointRepository,
-    rawLogRepository,
-    indexedBlockRepository,
-    erc20TransferRepository,
-    eventDecoder,
-    blockRangePlanner
-  );
+const syncContractEventsUseCase = new SyncContractEventsUseCase(
+  blockchainClient,
+  checkpointRepository,
+  rawLogRepository,
+  indexedBlockRepository,
+  erc20TransferRepository,
+  eventDecoder,
+  blockRangePlanner
+);
 
+async function runOnce(): Promise<void> {
   for (const target of targets) {
     const result = await syncContractEventsUseCase.execute({
       chainId: env.chainId,
@@ -72,14 +80,28 @@ async function runOnce() {
   }
 }
 
-async function loop() {
+async function loop(): Promise<void> {
   try {
     await runOnce();
   } catch (error) {
     console.error("[sync-error]", error);
   } finally {
-    setTimeout(loop, env.pollIntervalMs);
+    setTimeout(() => {
+      void loop();
+    }, env.pollIntervalMs);
   }
 }
+
+process.on("SIGINT", async () => {
+  console.log("[shutdown] SIGINT received");
+  await pool.end();
+  process.exit(0);
+});
+
+process.on("SIGTERM", async () => {
+  console.log("[shutdown] SIGTERM received");
+  await pool.end();
+  process.exit(0);
+});
 
 void loop();
