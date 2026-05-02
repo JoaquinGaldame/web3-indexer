@@ -1,5 +1,5 @@
-import { createHttpApp } from "./application/http-composition-root";
-import { env } from "./infraestructure/config/env";
+import { createHttpApp } from "#application/http-composition-root";
+import { env } from "#infraestructure/config/env";
 
 const app = createHttpApp();
 

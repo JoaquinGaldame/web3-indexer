@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { CheckReadinessUseCase } from "../../../../application/use-cases/health/check-readiness.use-case";
+import { CheckReadinessUseCase } from "#application/use-cases/health/check-readiness.use-case";
 
 export class HealthController {
   constructor(

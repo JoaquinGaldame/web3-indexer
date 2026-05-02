@@ -1,7 +1,7 @@
 import { Interface } from "ethers";
 
-import type { EventDecoderPort } from "../../domain/ports";
-import type { Erc20Transfer, RawLog } from "../../domain/entities";
+import type { EventDecoderPort } from "#domain/ports";
+import type { Erc20Transfer, RawLog } from "#domain/entities";
 
 const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 value)",

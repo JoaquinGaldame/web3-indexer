@@ -1,10 +1,51 @@
 {
   "name": "web3-indexer",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "imports": {
+    "#domain/entities": {
+      "development": "./src/domain/entities/index.ts",
+      "default": "./dist/domain/entities/index.js"
+    },
+    "#domain/ports": {
+      "development": "./src/domain/ports/index.ts",
+      "default": "./dist/domain/ports/index.js"
+    },
+    "#application/*": {
+      "development": "./src/application/*.ts",
+      "default": "./dist/application/*.js"
+    },
+    "#domain/*": {
+      "development": "./src/domain/*.ts",
+      "default": "./dist/domain/*.js"
+    },
+    "#infraestructure/blockchain": {
+      "development": "./src/infraestructure/blockchain/index.ts",
+      "default": "./dist/infraestructure/blockchain/index.js"
+    },
+    "#infraestructure/db": {
+      "development": "./src/infraestructure/db/index.ts",
+      "default": "./dist/infraestructure/db/index.js"
+    },
+    "#infraestructure/db/repositories": {
+      "development": "./src/infraestructure/db/repositories/index.ts",
+      "default": "./dist/infraestructure/db/repositories/index.js"
+    },
+    "#infraestructure/*": {
+      "development": "./src/infraestructure/*.ts",
+      "default": "./dist/infraestructure/*.js"
+    },
+    "#interfaces/*": {
+      "development": "./src/interfaces/*.ts",
+      "default": "./dist/interfaces/*.js"
+    }
+  },
   "scripts": {
-    "dev": "tsx watch src/main.ts",
-    "worker": "tsx watch src/interfaces/workers/sync.worker.ts"
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --conditions=development --watch --import tsx ./src/main.ts",
+    "worker": "node --conditions=development --watch --import tsx ./src/interfaces/workers/sync.worker.ts",
+    "start": "node dist/main.js",
+    "start:worker": "node dist/interfaces/workers/sync.worker.js"
   },
   "keywords": [],
   "author": "",

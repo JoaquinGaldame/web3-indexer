@@ -1,8 +1,8 @@
 import { and, eq, gte } from "drizzle-orm";
-import { db } from "../client";
-import { rawLogs } from "../schema";
-import type { RawLogRepositoryPort } from "../../../domain/ports";
-import type { RawLog } from "../../../domain/entities";
+import { db } from "#infraestructure/db/client";
+import { rawLogs } from "#infraestructure/db/schema";
+import type { RawLogRepositoryPort } from "#domain/ports";
+import type { RawLog } from "#domain/entities";
 
 export class DrizzleRawLogRepository implements RawLogRepositoryPort {
 

@@ -1,4 +1,4 @@
-import type { BlockRange } from "../../domain/entities";
+import type { BlockRange } from "#domain/entities";
 
 export type BlockRangePlannerInput = {
   lastProcessedBlock: number;

@@ -6,11 +6,11 @@ import type {
   Erc20TransferRepositoryPort,
   EventDecoderPort,
   CheckpointKey,
-} from "../../../domain/ports";
+} from "#domain/ports";
 
-import type { Erc20Transfer, IndexedBlock, RawLog } from "../../../domain/entities";
+import type { Erc20Transfer, IndexedBlock, RawLog } from "#domain/entities";
 
-import { BlockRangePlanner } from "../../services/block-range-planner";
+import { BlockRangePlanner } from "#application/services/block-range-planner";
 
 
 export type SyncContractEventsInput = {

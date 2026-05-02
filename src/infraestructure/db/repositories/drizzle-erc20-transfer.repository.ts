@@ -1,9 +1,9 @@
 import { and, asc, eq, gte, lte, or, sql } from "drizzle-orm";
 
-import { db } from "../client";
-import { erc20Transfers } from "../schema";
-import type { Erc20TransferRepositoryPort } from "../../../domain/ports";
-import type { Erc20Transfer } from "../../../domain/entities";
+import { db } from "#infraestructure/db/client";
+import { erc20Transfers } from "#infraestructure/db/schema";
+import type { Erc20TransferRepositoryPort } from "#domain/ports";
+import type { Erc20Transfer } from "#domain/entities";
 
 export class DrizzleErc20TransferRepository
   implements Erc20TransferRepositoryPort

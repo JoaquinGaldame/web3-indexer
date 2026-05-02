@@ -1,6 +1,6 @@
-import type { Erc20Transfer } from "../../../domain/entities";
-import type { Erc20TransferRepositoryPort } from "../../../domain/ports";
-import { GetTransfersInput } from "../../dtos/transfers/tranfers.interface";
+import type { Erc20Transfer } from "#domain/entities";
+import type { Erc20TransferRepositoryPort } from "#domain/ports";
+import { GetTransfersInput } from "#application/dtos/transfers/tranfers.interface";
 
 
 export class GetTransfersUseCase {

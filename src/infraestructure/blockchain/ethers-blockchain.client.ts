@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from "ethers";
 import type { Filter } from "ethers";
 
-import type { BlockchainClientPort, GetLogsParams } from "../../domain/ports";
-import type { IndexedBlock, RawLog } from "../../domain/entities";
+import type { BlockchainClientPort, GetLogsParams } from "#domain/ports";
+import type { IndexedBlock, RawLog } from "#domain/entities";
 
 export class EthersBlockchainClient implements BlockchainClientPort {
   private readonly provider: JsonRpcProvider;

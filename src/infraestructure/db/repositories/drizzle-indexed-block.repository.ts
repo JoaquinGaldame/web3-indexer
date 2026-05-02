@@ -1,8 +1,8 @@
 import { and, eq, gte } from "drizzle-orm";
-import { db } from "../client";
-import { indexedBlocks } from "../schema";
-import type { IndexedBlockRepositoryPort } from "../../../domain/ports";
-import type { IndexedBlock } from "../../../domain/entities";
+import { db } from "#infraestructure/db/client";
+import { indexedBlocks } from "#infraestructure/db/schema";
+import type { IndexedBlockRepositoryPort } from "#domain/ports";
+import type { IndexedBlock } from "#domain/entities";
 
 export class DrizzleIndexedBlockRepository
   implements IndexedBlockRepositoryPort

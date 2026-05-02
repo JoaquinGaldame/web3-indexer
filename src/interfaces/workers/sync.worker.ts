@@ -1,19 +1,19 @@
 // src/interfaces/workers/sync.worker.ts
 
 import { Interface } from "ethers";
-import { env } from "../../infraestructure/config/env";
-import { pool } from "../../infraestructure/db";
+import { env } from "#infraestructure/config/env";
+import { pool } from "#infraestructure/db";
 
-import { EthersBlockchainClient, EthersEventDecoder } from "../../infraestructure/blockchain";
+import { EthersBlockchainClient, EthersEventDecoder } from "#infraestructure/blockchain";
 
-import { DrizzleCheckpointRepository } from "../../infraestructure/db/repositories";
-import { DrizzleRawLogRepository } from "../../infraestructure/db/repositories";
-import { DrizzleIndexedBlockRepository } from "../../infraestructure/db/repositories";
-import { DrizzleErc20TransferRepository } from "../../infraestructure/db/repositories";
+import { DrizzleCheckpointRepository } from "#infraestructure/db/repositories";
+import { DrizzleRawLogRepository } from "#infraestructure/db/repositories";
+import { DrizzleIndexedBlockRepository } from "#infraestructure/db/repositories";
+import { DrizzleErc20TransferRepository } from "#infraestructure/db/repositories";
 
 
-import { BlockRangePlanner } from "../../application/services/block-range-planner";
-import { SyncContractEventsUseCase } from "../../application/use-cases/indexer/sync-contract-events.use-case";
+import { BlockRangePlanner } from "#application/services/block-range-planner";
+import { SyncContractEventsUseCase } from "#application/use-cases/indexer/sync-contract-events.use-case";
 
 const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 value)",

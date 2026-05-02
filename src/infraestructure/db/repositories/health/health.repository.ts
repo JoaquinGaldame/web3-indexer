@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { db } from "../../client";
+import { db } from "#infraestructure/db/client";
 
 export class DatabaseHealthRepository {
   async isHealthy(): Promise<boolean> {

@@ -1,17 +1,17 @@
-import { createHttpServer } from "../interfaces/http/server";
-import { createHttpRouter } from "../interfaces/http/router";
+import { createHttpServer } from "#interfaces/http/server";
+import { createHttpRouter } from "#interfaces/http/router";
 
-import { createHealthRouter } from "../interfaces/http/modules/health/health.routes";
-import { createTransfersRouter } from "../interfaces/http/modules/transfers/transfers.routes";
-import { TransfersController } from "../interfaces/http/modules/transfers/transfers.controllers";
+import { createHealthRouter } from "#interfaces/http/modules/health/health.routes";
+import { createTransfersRouter } from "#interfaces/http/modules/transfers/transfers.routes";
+import { TransfersController } from "#interfaces/http/modules/transfers/transfers.controllers";
 
-import { GetTransfersUseCase } from "./use-cases/transfer/get-transfers.use-case";
-import { DrizzleErc20TransferRepository } from "../infraestructure/db/repositories";
-import { HealthController } from "../interfaces/http/modules/health/health.controller";
+import { GetTransfersUseCase } from "#application/use-cases/transfer/get-transfers.use-case";
+import { DrizzleErc20TransferRepository } from "#infraestructure/db/repositories";
+import { HealthController } from "#interfaces/http/modules/health/health.controller";
 
 // Healthy
-import { DatabaseHealthRepository } from "../infraestructure/db/repositories/health/health.repository";
-import { CheckReadinessUseCase } from "./use-cases/health/check-readiness.use-case";
+import { DatabaseHealthRepository } from "#infraestructure/db/repositories/health/health.repository";
+import { CheckReadinessUseCase } from "#application/use-cases/health/check-readiness.use-case";
 
 
 

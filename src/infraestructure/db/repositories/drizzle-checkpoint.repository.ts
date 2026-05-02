@@ -1,8 +1,8 @@
 import { and, eq } from "drizzle-orm";
-import { db } from "../client";
-import { indexerCheckpoints } from "../schema";
-import type { CheckpointKey, CheckpointRepositoryPort } from "../../../domain/ports";
-import type { Checkpoint } from "../../../domain/entities";
+import { db } from "#infraestructure/db/client";
+import { indexerCheckpoints } from "#infraestructure/db/schema";
+import type { CheckpointKey, CheckpointRepositoryPort } from "#domain/ports";
+import type { Checkpoint } from "#domain/entities";
 
 export class DrizzleCheckpointRepository implements CheckpointRepositoryPort {
 

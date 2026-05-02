@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { GetTransfersUseCase } from "../../../../application/use-cases/transfer/get-transfers.use-case";
-import { GetTransfersInput } from "../../../../application/dtos/transfers/tranfers.interface";
+import { GetTransfersUseCase } from "#application/use-cases/transfer/get-transfers.use-case";
+import { GetTransfersInput } from "#application/dtos/transfers/tranfers.interface";
 
 
 export class TransfersController {

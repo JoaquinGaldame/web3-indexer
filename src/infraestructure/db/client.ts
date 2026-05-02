@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 
-import { env } from "../config/env";
+import { env } from "#infraestructure/config/env";
 
 export const pool = new Pool({
   connectionString: env.databaseUrl,
