@@ -13,7 +13,7 @@ import { DrizzleErc20TransferRepository } from "../../infraestructure/db/reposit
 
 
 import { BlockRangePlanner } from "../../application/services/block-range-planner";
-import { SyncContractEventsUseCase } from "../../application/use-cases/sync-contract-events.use-case";
+import { SyncContractEventsUseCase } from "../../application/use-cases/indexer/sync-contract-events.use-case";
 
 const ERC20_ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 value)",
