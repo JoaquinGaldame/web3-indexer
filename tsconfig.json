@@ -12,6 +12,7 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
+      "#bootstrap/*": ["src/bootstrap/*"],
       "#application/*": ["src/application/*"],
       "#domain/*": ["src/domain/*"],
       "#infraestructure/*": ["src/infraestructure/*"],

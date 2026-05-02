@@ -1,4 +1,4 @@
-import { createHttpApp } from "#application/http-composition-root";
+import { createHttpApp } from "#bootstrap/http/create-http-app";
 import { env } from "#infraestructure/config/env";
 
 const app = createHttpApp();

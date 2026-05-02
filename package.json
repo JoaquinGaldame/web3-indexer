@@ -1,8 +1,12 @@
 {
   "name": "web3-indexer",
   "version": "1.0.0",
-  "main": "dist/main.js",
+  "main": "dist/entrypoints/http.js",
   "imports": {
+    "#bootstrap/*": {
+      "development": "./src/bootstrap/*.ts",
+      "default": "./dist/bootstrap/*.js"
+    },
     "#domain/entities": {
       "development": "./src/domain/entities/index.ts",
       "default": "./dist/domain/entities/index.js"
@@ -42,10 +46,10 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "node --conditions=development --watch --import tsx ./src/main.ts",
-    "worker": "node --conditions=development --watch --import tsx ./src/interfaces/workers/sync.worker.ts",
-    "start": "node dist/main.js",
-    "start:worker": "node dist/interfaces/workers/sync.worker.js"
+    "dev": "node --conditions=development --watch --import tsx ./src/entrypoints/http.ts",
+    "worker": "node --conditions=development --watch --import tsx ./src/entrypoints/sync.worker.ts",
+    "start": "node dist/entrypoints/http.js",
+    "start:worker": "node dist/entrypoints/sync.worker.js"
   },
   "keywords": [],
   "author": "",
